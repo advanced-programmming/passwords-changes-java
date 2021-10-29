@@ -1,5 +1,6 @@
 package com.co.pa;
 
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Scanner;
@@ -71,9 +72,7 @@ class UnionFind {
     public UnionFind(int size){
         this.size = size;
         this.control = new int[size + 1];
-
-        for(int i = 0; i <= size; i++)
-            this.control[i] = -1;
+        Arrays.fill(this.control, -1);
     }
 
     public int find(int node){
@@ -87,12 +86,10 @@ class UnionFind {
 
         if(parent1 != parent2){
             if(node1 < node2){
-                int value = this.control[parent1];
-                this.control[parent1] = value - 1;
+                this.control[parent1] = this.control[parent1] + this.control[parent2];
                 this.control[node2] = node1;
             } else {
-                int value = this.control[parent2];
-                this.control[parent2] = value - 1;
+                this.control[parent2] = this.control[parent2] + this.control[parent1];
                 this.control[node2] = node1;
             }
         }
